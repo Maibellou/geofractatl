@@ -135,6 +135,8 @@ a  { text-decoration: none; color: inherit; }
   background: none;
   border: none;
   padding: 4px;
+  z-index: 1100;
+  position: relative;
 }
 
 .nav__burger span {
@@ -143,7 +145,22 @@ a  { text-decoration: none; color: inherit; }
   height: 2px;
   background: var(--blue-dark);
   border-radius: 2px;
-  transition: all var(--transition);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Burger → X animation */
+.nav__burger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+  background: var(--blue-dark);
+}
+.nav__burger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav__burger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+  background: var(--blue-dark);
 }
 
 /* ─── HERO ────────────────────────────────────────────────────────────── */
@@ -203,7 +220,7 @@ a  { text-decoration: none; color: inherit; }
   content: '';
   display: inline-block;
   width: 36px;
-  height: 1px;
+  height: 2.5px;
   background: var(--brown);
 }
 
@@ -439,9 +456,8 @@ a  { text-decoration: none; color: inherit; }
 .card--eng .card__icon {
   background: rgba(255,255,255,0.12);
   color: #7AB8D4;
-  width: 52px;
-  height: 52px;
-  font-size: 1.4rem;
+  width: 44px;
+  height: 44px;
   margin-bottom: 0;
   flex-shrink: 0;
 }
@@ -489,7 +505,8 @@ a  { text-decoration: none; color: inherit; }
 .geo-stepper--mobile {
   flex-direction: column;
   gap: 0;
-  margin-bottom: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .geo-step-v {
@@ -506,7 +523,7 @@ a  { text-decoration: none; color: inherit; }
   left: 21px;
   top: 44px;
   width: 2px;
-  height: calc(100% - 4px);
+  height: calc(100% - 8px);
   background: linear-gradient(to bottom, #376DA9 0%, #004F71 100%);
   opacity: 0.45;
 }
@@ -534,7 +551,7 @@ a  { text-decoration: none; color: inherit; }
 }
 
 .geo-step-v__content {
-  padding: 0.75rem 0 1.75rem;
+  padding: 0.6rem 0 1.5rem;
 }
 
 .geo-step-v__label {
@@ -633,6 +650,7 @@ a  { text-decoration: none; color: inherit; }
   font-size: 0.95rem;
   line-height: 1.75;
   max-width: 920px;
+  margin-top: 0;
 }
 
 /* ─── CASOS DE ÉXITO ──────────────────────────────────────────────────── */
@@ -734,7 +752,6 @@ a  { text-decoration: none; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
   transition: all var(--transition);
 }
 
@@ -934,27 +951,65 @@ footer {
 /* ─── RESPONSIVE ──────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .nav__links { display: none; }
+
+  /* Nav full‑screen cuando está abierto */
+  #nav.nav--open {
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    backdrop-filter: none;
+  }
+  #nav.nav--open .nav__inner {
+    flex: 1;
+    flex-direction: column;
+    height: auto;
+    padding-top: 1.25rem;
+    position: relative;
+  }
+  #nav.nav--open .nav__burger {
+    position: absolute;
+    top: 1.25rem;
+    right: 0;
+  }
   .nav__links.open {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 80px;
-    left: 0;
-    right: 0;
-    background: var(--white);
-    padding: 1.5rem 2rem;
-    border-top: 1px solid rgba(55,109,169,0.1);
-    gap: 1rem;
-    box-shadow: var(--shadow);
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 2rem;
+    animation: navFadeIn 0.28s ease forwards;
+  }
+  @keyframes navFadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .nav__links.open a {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--blue-dark);
+  }
+  .nav__links.open a:hover { color: var(--blue); }
+  .nav__links.open .nav__cta {
+    font-size: 1.4rem;
+    padding: 0.75rem 2.5rem;
+    background: var(--blue);
+    color: var(--white) !important;
   }
   .nav__burger { display: flex; }
   .nosotros__grid { grid-template-columns: 1fr; gap: 3rem; }
   .metodologia__intro { grid-template-columns: 1fr; gap: 1.5rem; }
   .geo-stepper--desktop { display: none; }
   .geo-stepper--mobile  { display: flex; }
+  /* Metodología mobile spacing */
+  #metodologia.section { padding: 64px 0; }
+  #metodologia .metodologia__lead { margin-bottom: 0; }
+  #metodologia .metodologia__footer { margin-top: 0.5rem; }
   .servicios__grid { grid-template-columns: 1fr 1fr; }
-  .card--eng { grid-template-columns: 1fr; }
-  .card--eng .card__icon { margin-bottom: 1rem; }
+  .card--eng { grid-template-columns: 1fr; align-content: start; gap: 0; }
+  .card--eng .card__icon { margin-bottom: 1.25rem; }
   /* Services horizontal slider */
   #servicios .servicios__grid {
     display: flex;
@@ -986,7 +1041,8 @@ footer {
 }
 
 @media (max-width: 600px) {
-  .section { padding: 70px 0; }
+  .section { padding: 56px 0; }
+  .card { padding: 1.5rem; }
   .servicios__grid { grid-template-columns: 1fr; }
   .stepper { gap: 1rem; }
   .step__connector { display: none; }
@@ -998,4 +1054,13 @@ footer {
   .hero__title { font-size: 2rem; }
   #servicios .container { overflow: visible; }
   #servicios { overflow: hidden; }
+  /* Metodología: stepper más compacto en pantallas pequeñas */
+  #metodologia.section { padding: 48px 0; }
+  .geo-stepper--mobile { margin-top: 1.5rem; margin-bottom: 2rem; }
+  .geo-step-v__content { padding: 0.5rem 0 1.25rem; }
+  .geo-step-v__label { font-size: 0.95rem; }
+  #metodologia .metodologia__footer {
+    padding: 1.25rem 1.5rem;
+    font-size: 0.88rem;
+  }
 }

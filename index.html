@@ -210,7 +210,7 @@
             aprovechamiento, recarga o control.</p>
           <ul class="card__list">
             <li>Identificación de zonas de recarga.</li>
-            <li>Evaluación de disponibilidad y comportamiento del agua subterránea.</li>
+            <li>Evaluación de disponibilidad y comportamiento del agua.</li>
             <li>Balance hídrico.</li>
             <li>Viabilidad técnica de aprovechamiento.</li>
           </ul>
@@ -255,7 +255,7 @@
         <!-- Ingeniería card -->
         <article class="card card--eng" role="listitem" id="servicio-ingenieria">
           <div class="card__icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
               <path
                 d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
@@ -441,13 +441,25 @@
       </div>
 
       <div class="slider__controls">
-        <button class="slider__btn" id="slider-prev" aria-label="Anterior">&#8592;</button>
+        <button class="slider__btn" id="slider-prev" aria-label="Anterior">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
         <div class="slider__dots" role="tablist" aria-label="Seleccionar slide">
           <button class="dot active" id="dot-0" role="tab" aria-selected="true" aria-label="Slide 1"></button>
           <button class="dot" id="dot-1" role="tab" aria-selected="false" aria-label="Slide 2"></button>
           <button class="dot" id="dot-2" role="tab" aria-selected="false" aria-label="Slide 3"></button>
         </div>
-        <button class="slider__btn" id="slider-next" aria-label="Siguiente">&#8594;</button>
+        <button class="slider__btn" id="slider-next" aria-label="Siguiente">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
       </div>
     </div>
   </section>
@@ -582,12 +594,18 @@
     const navLinks = document.getElementById('nav-links');
     burger.addEventListener('click', () => {
       const open = navLinks.classList.toggle('open');
+      burger.classList.toggle('open', open);
+      nav.classList.toggle('nav--open', open);
       burger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
     });
     navLinks.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
         navLinks.classList.remove('open');
+        burger.classList.remove('open');
+        nav.classList.remove('nav--open');
         burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
       });
     });
 
