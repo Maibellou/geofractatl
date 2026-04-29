@@ -51,11 +51,11 @@ a  { text-decoration: none; color: inherit; }
 .section__label {
   font-family: 'Urbanist', sans-serif;
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 900;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--brown);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .section__title {
@@ -87,18 +87,14 @@ a  { text-decoration: none; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 80px;
 }
 
-.nav__logo {
-  font-family: 'Roboto Slab', serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--blue-dark);
-  letter-spacing: 0.06em;
+.nav__logo img {
+  height: 64px;
+  width: auto;
+  display: block;
 }
-
-.nav__logo span { color: var(--blue); }
 
 .nav__links {
   display: flex;
@@ -238,7 +234,7 @@ a  { text-decoration: none; color: inherit; }
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.85rem 2rem;
+  padding: 0.65rem 2rem;
   border-radius: var(--radius);
   font-family: 'Urbanist', sans-serif;
   font-size: 0.9rem;
@@ -272,35 +268,9 @@ a  { text-decoration: none; color: inherit; }
   transform: translateY(-2px);
 }
 
-.hero__scroll {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: rgba(255,255,255,0.5);
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  animation: bounce 2s infinite;
-}
 
-.hero__scroll::after {
-  content: '';
-  display: block;
-  width: 1px;
-  height: 40px;
-  background: rgba(255,255,255,0.3);
-}
 
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%       { transform: translateX(-50%) translateY(6px); }
-}
+
 
 /* ─── NOSOTROS ────────────────────────────────────────────────────────── */
 .nosotros__grid {
@@ -308,7 +278,7 @@ a  { text-decoration: none; color: inherit; }
   grid-template-columns: 1fr 1fr;
   gap: 6rem;
   align-items: center;
-  margin-top: 4rem;
+  margin-top: 1rem;
 }
 
 .nosotros__stats {
@@ -369,7 +339,7 @@ a  { text-decoration: none; color: inherit; }
   font-size: 0.85rem;
   line-height: 1.4;
   box-shadow: var(--shadow-md);
-  max-width: 200px;
+  max-width: 300px;
 }
 
 .nosotros__badge strong {
@@ -496,82 +466,162 @@ a  { text-decoration: none; color: inherit; }
   border-color: var(--blue-dark);
 }
 
+.card--eng .card__text {
+  color: rgba(255,255,255,0.85);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
 /* ─── METODOLOGÍA ─────────────────────────────────────────────────────── */
-.metodologia__lead {
-  max-width: 680px;
+.metodologia__intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1000px;
   margin-bottom: 4rem;
 }
 
-.stepper {
+/* Desktop stepper visible / mobile hidden by default */
+.geo-stepper--desktop { display: block; }
+.geo-stepper--mobile  { display: none; }
+
+/* ── Mobile vertical stepper ─────────────────────────────────────── */
+.geo-stepper--mobile {
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 3rem;
+}
+
+.geo-step-v {
   display: flex;
   align-items: flex-start;
-  gap: 0;
+  gap: 1.25rem;
   position: relative;
-  margin-bottom: 3.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
 }
 
-.step {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  min-width: 120px;
-}
-
-.step__connector {
+/* Vertical connector line between nodes */
+.geo-step-v:not(.geo-step-v--last)::after {
+  content: '';
   position: absolute;
-  top: 22px;
-  left: 50%;
-  right: -50%;
-  height: 2px;
-  background: linear-gradient(90deg, var(--blue), var(--blue-dark));
-  z-index: 0;
+  left: 21px;
+  top: 44px;
+  width: 2px;
+  height: calc(100% - 4px);
+  background: linear-gradient(to bottom, #376DA9 0%, #004F71 100%);
+  opacity: 0.45;
 }
 
-.step:last-child .step__connector { display: none; }
-
-.step__dot {
+.geo-step-v__node {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--white);
-  border: 2.5px solid var(--blue);
+  background: #fff;
+  border: 2px solid #376DA9;
+  box-shadow: 0 0 0 6px rgba(55,109,169,0.1);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   z-index: 1;
-  color: var(--blue);
-  font-weight: 800;
-  font-size: 0.9rem;
-  font-family: 'Roboto Slab', serif;
-  transition: background var(--transition), color var(--transition);
-  box-shadow: 0 2px 12px rgba(55,109,169,0.18);
 }
 
-.step:hover .step__dot {
-  background: var(--blue);
-  color: var(--white);
-}
-
-.step__label {
+.geo-step-v__num {
   font-family: 'Roboto Slab', serif;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--blue-dark);
-  margin-top: 0.85rem;
-  text-align: center;
-  letter-spacing: 0.04em;
+  color: #004F71;
+  letter-spacing: 0.03em;
 }
 
-.step__sublabel {
-  font-size: 0.75rem;
-  color: var(--gray);
-  text-align: center;
-  margin-top: 0.3rem;
-  max-width: 100px;
+.geo-step-v__content {
+  padding: 0.75rem 0 1.75rem;
+}
+
+.geo-step-v__label {
+  font-family: 'Roboto Slab', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #004F71;
+  letter-spacing: 0.02em;
+}
+
+/* ── Geo Stepper ─────────────────────────────────────────────────── */
+.geo-stepper {
+  width: 85%;
+  display: block;
+  margin-bottom: 3.5rem;
+  overflow: visible;
+}
+
+.geo-stepper__path {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: drawGeoPath 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.2s;
+}
+
+@keyframes drawGeoPath {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Step group */
+.geo-step {
+  cursor: default;
+  outline: none;
+}
+
+/* Outer ring – visible light halo matching the image */
+.geo-step__ring {
+  fill: white;
+  stroke: rgba(55, 109, 169, 0.35);
+  stroke-width: 1.5;
+  transition: stroke 0.2s ease;
+}
+
+.geo-step:hover .geo-step__ring,
+.geo-step:focus .geo-step__ring {
+  stroke: rgba(55, 109, 169, 0.65);
+}
+
+/* Inner filled circle */
+.geo-step__fill {
+  fill: var(--white);
+  stroke: #376DA9;
+  stroke-width: 2;
+  transition: fill 0.2s ease, stroke 0.2s ease;
+}
+
+.geo-step:hover .geo-step__fill,
+.geo-step:focus .geo-step__fill {
+  fill: #376DA9;
+}
+
+/* Number inside circle */
+.geo-step__num {
+  font-family: 'Roboto Slab', serif;
+  font-size: 10.2px;
+  font-weight: 700;
+  fill: #004F71;
+  text-anchor: middle;
+  pointer-events: none;
+  letter-spacing: 0.03em;
+  transition: fill 0.2s ease;
+}
+
+.geo-step:hover .geo-step__num,
+.geo-step:focus .geo-step__num {
+  fill: #ffffff;
+}
+
+/* Step label */
+.geo-step__label {
+  font-family: 'Roboto Slab', serif;
+  font-size: 11px;
+  font-weight: 700;
+  fill: #004F71;
+  text-anchor: middle;
+  dominant-baseline: auto;
+  letter-spacing: 0.02em;
+  pointer-events: none;
 }
 
 .metodologia__footer {
@@ -582,7 +632,7 @@ a  { text-decoration: none; color: inherit; }
   color: var(--gray);
   font-size: 0.95rem;
   line-height: 1.75;
-  max-width: 860px;
+  max-width: 920px;
 }
 
 /* ─── CASOS DE ÉXITO ──────────────────────────────────────────────────── */
@@ -601,8 +651,9 @@ a  { text-decoration: none; color: inherit; }
 .slide {
   flex: 0 0 100%;
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  min-height: 420px;
+  grid-template-columns: 1fr 1fr;
+  height: 300px;
+  overflow: hidden;
 }
 
 .slide__img {
@@ -622,11 +673,11 @@ a  { text-decoration: none; color: inherit; }
 .slide__content {
   background: var(--blue-dark);
   color: var(--white);
-  padding: 3rem 3.5rem;
+  padding: 2rem 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.65rem;
 }
 
 .slide__num {
@@ -639,16 +690,16 @@ a  { text-decoration: none; color: inherit; }
 
 .slide__title {
   font-family: 'Roboto Slab', serif;
-  font-size: 1.45rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--white);
   line-height: 1.3;
 }
 
 .slide__desc {
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   color: rgba(255,255,255,0.75);
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .slide__tag {
@@ -726,9 +777,9 @@ a  { text-decoration: none; color: inherit; }
 
 .contacto__grid {
   display: grid;
-  grid-template-columns: 1fr 1.3fr;
+  grid-template-columns: 1.3fr 1fr;
   gap: 6rem;
-  margin-top: 4rem;
+  margin-top: 3rem;
   align-items: start;
 }
 
@@ -752,8 +803,8 @@ a  { text-decoration: none; color: inherit; }
 }
 
 .contacto__item-icon {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(55,109,169,0.3);
   display: flex;
@@ -761,7 +812,38 @@ a  { text-decoration: none; color: inherit; }
   justify-content: center;
   color: #7AB8D4;
   flex-shrink: 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
+}
+
+.contacto__item-label {
+  display: block;
+  color: #fff;
+  margin-bottom: 0.2rem;
+  font-weight: 700;
+}
+
+.contacto__social {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.contacto__social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color var(--transition);
+}
+
+.contacto__social-link:hover {
+  color: #7AB8D4;
 }
 
 .form {
@@ -772,7 +854,7 @@ a  { text-decoration: none; color: inherit; }
 
 .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 
-.form__group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form__group { display: flex; flex-direction: column; gap: 0.3rem; }
 
 .form__label {
   font-size: 0.8rem;
@@ -842,12 +924,11 @@ footer {
   gap: 1rem;
 }
 
-.footer__logo {
-  font-family: 'Roboto Slab', serif;
-  font-size: 1rem;
-  color: rgba(255,255,255,0.65);
-  font-weight: 700;
-  letter-spacing: 0.06em;
+.footer__logo img {
+  height: 56px;
+  width: auto;
+  opacity: 0.9;
+  filter: brightness(0) invert(1);
 }
 
 /* ─── RESPONSIVE ──────────────────────────────────────────────────────── */
@@ -857,7 +938,7 @@ footer {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 68px;
+    top: 80px;
     left: 0;
     right: 0;
     background: var(--white);
@@ -868,11 +949,38 @@ footer {
   }
   .nav__burger { display: flex; }
   .nosotros__grid { grid-template-columns: 1fr; gap: 3rem; }
+  .metodologia__intro { grid-template-columns: 1fr; gap: 1.5rem; }
+  .geo-stepper--desktop { display: none; }
+  .geo-stepper--mobile  { display: flex; }
   .servicios__grid { grid-template-columns: 1fr 1fr; }
   .card--eng { grid-template-columns: 1fr; }
   .card--eng .card__icon { margin-bottom: 1rem; }
-  .slide { grid-template-columns: 1fr; }
-  .slide__img { height: 240px; }
+  /* Services horizontal slider */
+  #servicios .servicios__grid {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-right: -1.5rem;
+    padding-right: 1.5rem;
+    scrollbar-width: none;
+  }
+  #servicios .servicios__grid::-webkit-scrollbar { display: none; }
+  #servicios .card {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+  #servicios .card--eng {
+    flex: 0 0 92%;
+    grid-template-columns: 1fr;
+  }
+  .slide { display: flex; flex-direction: column; min-height: unset; height: auto; }
+  .slide__img { height: 200px; flex-shrink: 0; }
+  .slide__content { overflow: visible; padding: 1.5rem 1.75rem; flex: 1; }
   .contacto__grid { grid-template-columns: 1fr; gap: 3rem; }
   .form__row { grid-template-columns: 1fr; }
 }
@@ -888,4 +996,6 @@ footer {
   .step__label, .step__sublabel { text-align: left; margin: 0 0 0 1rem; max-width: unset; }
   .step__label { margin-top: 0; }
   .hero__title { font-size: 2rem; }
+  #servicios .container { overflow: visible; }
+  #servicios { overflow: hidden; }
 }
