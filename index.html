@@ -661,16 +661,22 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+          if (entry.target.classList.contains('geo-stepper')) {
+            entry.target.classList.add('is-visible');
+          } else {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
         }
       });
     }, { threshold: 0.12 });
 
-    document.querySelectorAll('.card, .stat, .step, .slide__content').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    document.querySelectorAll('.card, .stat, .geo-step, .geo-step-v, .slide__content, .geo-stepper').forEach(el => {
+      if (!el.classList.contains('geo-stepper')) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      }
       observer.observe(el);
     });
   </script>
