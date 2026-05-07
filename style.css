@@ -209,7 +209,7 @@ a  { text-decoration: none; color: inherit; }
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.9);
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
@@ -234,12 +234,12 @@ a  { text-decoration: none; color: inherit; }
 
 .hero__title em {
   font-style: normal;
-  color: #7AB8D4;
+  color: #A3D4EB;
 }
 
 .hero__text {
   font-size: 1.15rem;
-  color: rgba(255,255,255,0.82);
+  color: rgba(255,255,255,0.95);
   max-width: 580px;
   margin-bottom: 2.5rem;
   line-height: 1.75;
@@ -276,7 +276,7 @@ a  { text-decoration: none; color: inherit; }
 .btn--outline {
   background: transparent;
   color: var(--white);
-  border: 1.5px solid rgba(255,255,255,0.45);
+  border: 1.5px solid rgba(255,255,255,0.7);
 }
 
 .btn--outline:hover {
@@ -441,51 +441,30 @@ a  { text-decoration: none; color: inherit; }
   font-size: 0.75rem;
 }
 
-/* Engineering card */
-.card--eng {
+/* Dark card variation */
+.card--dark {
   background: var(--blue-dark);
   color: var(--white);
   border-color: var(--blue-dark);
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 2rem;
-  align-items: start;
 }
-
-.card--eng .card__icon {
+.card--dark:hover {
+  box-shadow: 0 12px 36px rgba(0,79,113,0.35);
+}
+.card--dark .card__icon {
   background: rgba(255,255,255,0.12);
   color: #7AB8D4;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 0;
-  flex-shrink: 0;
 }
-
-.card--eng .card__title {
+.card--dark .card__title {
   color: var(--white);
-  font-size: 1.05rem;
-  margin-bottom: 1rem;
 }
-
-.card--eng .card__body { display: flex; flex-direction: column; }
-
-.card--eng .card__list { display: flex; flex-wrap: wrap; gap: 0 2.5rem; }
-
-.card--eng .card__list li { color: rgba(255,255,255,0.78); }
-
-.card--eng .card__list li::before { color: #7AB8D4; }
-
-.card--eng:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(0,79,113,0.35);
-  border-color: var(--blue-dark);
-}
-
-.card--eng .card__text {
+.card--dark .card__text {
   color: rgba(255,255,255,0.85);
-  line-height: 1.8;
-  font-size: 0.95rem;
+}
+.card--dark .card__list li {
+  color: rgba(255,255,255,0.78);
+}
+.card--dark .card__list li::before {
+  color: #7AB8D4;
 }
 
 /* ─── METODOLOGÍA ─────────────────────────────────────────────────────── */
@@ -644,6 +623,47 @@ a  { text-decoration: none; color: inherit; }
   pointer-events: none;
 }
 
+/* Tooltips inside SVG */
+.geo-tooltip-container {
+  width: 100%;
+  height: 100%;
+}
+.geo-tooltip {
+  background: var(--white);
+  color: var(--gray);
+  border: 1px solid rgba(55,109,169,0.15);
+  border-radius: 4px;
+  padding: 8px;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 8.5px;
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgba(0,79,113,0.12);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+.geo-tooltip strong {
+  display: block;
+  color: var(--blue-dark);
+  font-weight: 700;
+  margin-bottom: 3px;
+  font-size: 9.5px;
+  line-height: 1.2;
+}
+.geo-step:hover .geo-tooltip,
+.geo-step:focus .geo-tooltip {
+  opacity: 1;
+}
+.geo-step-v__desc {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.9rem;
+  color: var(--gray);
+  margin-top: 0.35rem;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
 .metodologia__footer {
   background: var(--gray-light);
   border-left: 4px solid var(--blue);
@@ -673,7 +693,7 @@ a  { text-decoration: none; color: inherit; }
   flex: 0 0 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 300px;
+  height: 330px;
   overflow: hidden;
 }
 
@@ -1038,7 +1058,7 @@ footer {
     grid-template-columns: 1fr;
   }
   .slide { display: flex; flex-direction: column; min-height: unset; height: auto; }
-  .slide__img { height: 200px; flex-shrink: 0; }
+  .slide__img { height: 220px; flex-shrink: 0; }
   .slide__content { overflow: visible; padding: 1.5rem 1.75rem; flex: 1; }
   .contacto__grid { grid-template-columns: 1fr; gap: 3rem; }
   .form__row { grid-template-columns: 1fr; }
